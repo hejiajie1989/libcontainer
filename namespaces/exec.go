@@ -179,6 +179,7 @@ func InitializeNetworking(container *libcontainer.Config, nspid int, pipe *syncp
 		if err != nil {
 			return err
 		}
+		// 根据之前添加的额网络接口类型(loopback, netns, bridge)创建接口
 		if err := strategy.Create((*network.Network)(config), nspid, networkState); err != nil {
 			return err
 		}

@@ -31,6 +31,7 @@ func (v *Veth) Create(n *Network, nspid int, networkState *NetworkState) error {
 	if err != nil {
 		return err
 	}
+	// 把name1的接口加入到docker bridge里
 	if err := SetInterfaceMaster(name1, bridge); err != nil {
 		return err
 	}
@@ -40,6 +41,7 @@ func (v *Veth) Create(n *Network, nspid int, networkState *NetworkState) error {
 	if err := InterfaceUp(name1); err != nil {
 		return err
 	}
+	// 设置name2是创建的进程的网络namespace
 	if err := SetInterfaceInNamespacePid(name2, nspid); err != nil {
 		return err
 	}
@@ -88,6 +90,7 @@ func createVethPair(prefix string) (name1 string, name2 string, err error) {
 	if err != nil {
 		return
 	}
+	//创建veth虚拟接口对
 	if err = CreateVethPair(name1, name2); err != nil {
 		return
 	}
